@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			ul, li {
+				list-style: none;
+			}
+			
+			#box {
+				width: 800px;
+				height: 300px;
+				position: relative;
+				overflow: hidden;
+				margin: 10px auto;
+			}
+			
+			#list {
+				width: 600px;
+				position:absolute;
+				left: 0px;
+				top: 0;
+			}
+			
+			#list li {
+				width: 600px;
+				height: 300px;
+			}
+			#list img {
+				width: 600px;
+				height: 300px;
+			}
+			
+			#list2 {
+				width: 200px;
+				height: 300px;
+				position: absolute;
+				left: 600px;
+				top: 0;
+			}
+			
+			#list2 li {
+				width: 200px;
+				height: 100px;
+				background: yellow;
+				line-height: 100px;
+				text-align: center;
+				font-size: 20px;
+			}
+		</style>
+<script type="text/javascript" src="starMoveForEiditon.js" ></script>
+		<script>
+
+// 功能 显示 激活 按钮
+//   (1) 清空所有按钮
+//   (2) 当前要激活的按钮，设置成 红色
+
+// showBtn
+// 参数：
+//          allBtn 所有的按钮
+//          index  激活按钮的下标
+function showBtn(allBtn, index) {
+
+	// 清空所有按钮
+	for (var j = 0; j < allBtn.length; j++) {
+		allBtn[j].style.background = "yellow";
+	}
+	allBtn[index].style.background = "red";		
+}
+
+onload = function() {
+	var oList = document.getElementById("list");
+	
+	// 复制一份图片
+	oList.innerHTML += oList.innerHTML;
+	
+	var aLi = oList.getElementsByTagName("li");
+	
+	// 按钮的ul
+	var oList2 = document.getElementById("list2"); 
+	//  所有按钮
+	var aLi2 = oList2.getElementsByTagName("li");
+	
+	
+	// 思路：
+	//   (1) 定时更新
+	//   (2) 点击按钮更新图片
+	//   (3) 上一页、下一页需要考虑当前是否在滚动
+	
+	var t = 3000;
+	var timer = setTimeout(move, t);
+	
+	var i = 0;
+	function move() {
+		i++;
+		
+		var iTop = -1 * i * 300;
+		
+		starMove(oList, "top", iTop, next);
+		
+		
+		
+		// 当前要显示按钮的下标
+		var index = i;
+		if (i >= aLi.length/2) {
+			index = 0;
+		}
+		showBtn(aLi2, index);
+		
+	}
+	
+	function next() {
+		
+		if (i >= aLi.length / 2) {
+			i = 0;
+			// 瞬间回到第0张
+			oList.style.top = "0px";
+		}
+		
+		timer = setTimeout(move, t);
+	}
+	
+	// 所有的按钮
+	for (var j = 0; j < aLi2.length; j++) {
+		aLi2[j].xxx = j;
+		aLi2[j].onclick = function() {
+			
+			clearTimeout(timer);
+			
+			// 取出下标赋值给 i， 因为 move函数中 i++，
+			// 所以如果要移动 this.xxx 这张图，需要减1
+			i = this.xxx - 1;
+			
+			// 切换到i的【下一张】图片
+			move();
+		}
+	}
+
+}
+
+		</script>
+		
+	</head>
+	<body>
+		<div id="box">
+			<ul id="list">
+				<li><img src="1.jpg" /></li>
+				<li><img src="2.jpg" /></li>
+				<li><img src="3.jpg" /></li>
+			</ul>
+			<ul id="list2">
+				<li style="background: red;">1</li>
+				<li>2</li>
+				<li>3</li>
+			</ul>
+		</div>
+		
+		<a href="#" id="prePage">上一页</a> <a href="#" id="nextPage">下一页</a> 
+	</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title></title>
+	</head>
+	<style>
+		*{
+			padding: 0px;
+			margin: 0px;
+		}
+
+.cover {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background: rgba(30, 30, 30, 0.3);
+}
+
+.layer {
+	text-align:center;
+	width: 500px;
+	height: 150px;
+	margin: auto;	
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	background: cornflowerblue;
+	border: 1px solid black;
+}
+
+.title {
+	cursor: move;
+
+	text-align:left;
+	height: 30px;
+	background: orange;
+}
+
+.closeBtn {
+	text-align: center;
+    position: absolute;
+	bottom: 0;
+}
+
+
+	</style>
+	<script type="text/javascript">
+		onload = function(){
+			var _title = document.getElementsByClassName("title")[0];
+			var layer = document.getElementsByClassName("layer")[0];
+			var closeBtn = document.getElementsByClassName("closeBtn")[0];
+			var cover = document.getElementsByClassName("cover")[0];
+			_title.onmousedown = function(evt){
+				var e = evt || event;
+				//记录鼠标的相对位置
+				var x = e.offsetX;
+				var y = e.offsetY;
+				//layer.style.margin = "0px"; //写在这里会产生什么bug？？
+				document.onmousemove = function(e){
+					var e = e || event;
+					layer.style.margin = "0px"; //样式会影响运动效果
+					//改变layer的位置
+					layer.style.left = e.clientX - x + "px";
+					layer.style.top = e.clientY - y + "px";
+				}
+			}
+			_title.onmouseup = function(){
+				document.onmousemove = null;
+			}
+			
+			closeBtn.onclick = function(){
+				cover.style.display = "none";
+			}
+		}
+	</script>
+	<body>
+		<div class="cover">
+			<div class="layer">
+				<div class="title">窗口标题</div>
+				<button class="closeBtn">关闭</button>
+			</div>			
+		</div>
+		<ul>
+			<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li>
+		</ul>
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	// function addCookie(name,val,day){
+	// 	var obj=new Date();
+	// 	obj.setDate(obj.getDate()+day);
+	//     document.cookie=""+name+"="+val+";expires="+obj;
+ //    }
+    //  function addCookie(name,value,days){
+	   //    var oDate=new Date();
+	   //    oDate.setDate(oDate.getDate()+days);
+	   //    document.cookie=""+name+"="+value+";expires="+oDate;
+    // }
+    //  addCookie("username","li",20);
+    //   addCookie("password","123456",20);
+    var now=new Date();
+    now.setDate(now.getDate()+10);
+    document.cookie="name=li;expires+"=now;
+
+
+      //   var obj={};
+        
+     	// var allStr=document.cookie;
+     	// var arr=allStr.split("; ");
+
+     	// for(var i=0;i<arr.length;i++){
+     	// 	var arr1=arr[i].split("=");
+     	// 	obj[arr1[0]]=arr1[1];
+
+     	// }
+     	// alert(obj.username);
+     	// 
+     	function getCookie(str){
+     		var obj={};
+     		var allStr=document.cookie;
+     		var arr=allStr.split("; ");
+
+     		for(var i=0;i<arr.length;i++){
+     			var arr1=arr[i].split("=");
+     			obj[arr1[0]]=arr1[1];
+     		}
+     		return obj[str];
+     	}
+     	// alert(getCookie("username"));
+
+
+     	
+     
+       
+
+     
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

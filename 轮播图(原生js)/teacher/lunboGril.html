@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			
+			ul, li {
+				list-style: none;
+			}
+			
+			#box {
+				width: 800px;
+				height: 300px;
+				position: relative;
+				margin: 10px auto;
+				overflow: hidden;
+			}
+			
+			#list {
+				position: absolute;
+				left: 0;
+				top: 0;
+				
+			}
+			
+			#list li {
+				width: 600px;
+				height: 300px;
+				padding-left: 100px;
+			}
+			
+			#list img{
+				width: 600px;
+				height: 300px;
+			}
+			
+			
+		</style>
+		
+		<script type="text/javascript" src="starMoveForEiditon.js"></script>
+		
+		<script>
+window.onload=function(){
+			var list=document.getElementById("list");
+			var allLi=list.getElementsByTagName("li");
+			list.innerHTML+=list.innerHTML;
+			var i=0;
+			setInterval(function(){
+				i++
+				var end=-1*i*300;
+				starMove(list,"top",end,stop)
+			},3000)
+			function stop(){
+				if(i>=allLi.length/2){
+					i=0;
+					list.style.top="0px";
+				}
+			}
+
+		}
+
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<ul id="list">
+				<li style="background: yellow;"><img src="1.jpg" /></li>
+				<li style="background: blue;"><img src="2.jpg" /></li>
+				<li style="background: pink;"><img src="3.jpg" /></li>
+			</ul>
+		</div>
+	</body>
+</html>

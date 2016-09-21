@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title> 标题 </title>
+
+<script>
+
+onload = function() {
+
+	var btn = document.getElementById("btn1");
+
+	/*
+	btn.onclick = function() {
+
+		alert("按钮点击了");
+	}
+	//*/
+
+	// DOM2 事件绑定
+	/*
+	btn.addEventListener("click", function() {
+		alert("按钮点击了");
+	}, false);
+	//*/
+	
+	/*
+	function btnClicked() {
+		alert("按钮点击了");
+	}
+
+	function btnClicked2() {
+		alert("按钮点击了, 2222");
+	}
+	// IE 中添加事件绑定的方式
+	// 参数1：on+事件名
+	// 参数2：执行的函数
+	btn.attachEvent("onclick", btnClicked);
+	btn.attachEvent("onclick", btnClicked2);
+	//*/
+	
+	binding(btn, "click", function() {
+		alert("按钮点击啦！");
+	});
+
+}
+
+//           标准化情况
+// Firefox:  99%
+// Chrome:   60%
+// IE:       20%  IE8及以下的   IE9 90%
+
+// Firefox 要调试的话，建议使用 Firebug 这个插件！
+
+
+
+// 封装一个函数，来处理不同浏览器对事件绑定方式不一样的问题
+// 参数： 对象, 事件名，处理函数
+// 返回值： 不需要
+
+// oElem： 要绑定的对象
+// eventName: 不带on的事件名称，例如： click, mousemove 等
+// fn: 处理函数
+// 返回值： 没有
+
+// btn, click
+
+function binding(oElem, eventName, fn)
+{
+	// 如果绑定对象中存在 attachEvent 这个方法，
+	// 说明是在IE浏览器中
+	if (oElem.attachEvent)
+	{
+		// eventName  :  click ==> onclick
+		oElem.attachEvent("on" + eventName, fn);
+	}
+	else
+	{	
+		oElem.addEventListener(eventName, fn, false);
+	}
+}
+
+
+
+</script>
+
+ </head>
+
+ <body>
+
+	<input type="button" value="按钮" id="btn1">
+  
+ </body>
+</html>

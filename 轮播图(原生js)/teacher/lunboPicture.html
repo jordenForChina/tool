@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+	    *{margin: 0px;padding: 0px;}
+	    #box{width: 1000px;height: 100px;position: relative;overflow: hidden;}
+	    li{list-style: none;font-size: 50px;text-align: center;line-height: 100px;}
+	    #list{position: absolute;top:0px;left: 300px;}
+	</style>
+	<title>Document</title>
+	<script type="text/javascript" src="starMoveForEiditon.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var list=document.getElementById("list");
+			var allLi=list.getElementsByTagName("li");
+			list.innerHTML+=list.innerHTML;
+			var i=0;
+			setInterval(function(){
+				i++
+				var end=-1*i*100;
+				starMove(list,"top",end,again)
+			},3000)
+			function again(){
+				if(i>=allLi.length/2){
+					i=0;
+					list.style.top="0px"
+				}
+			}
+
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<ul id="list">
+			<li style="width:500px;height:100px;background:red">1</li>
+			<li style="width:500px;height:100px;background:blue">2</li>
+			<li style="width:500px;height:100px;background:green">3</li>
+		</ul>
+	</div>
+</body>
+</html>

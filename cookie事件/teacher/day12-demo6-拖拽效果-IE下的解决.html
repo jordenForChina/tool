@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖拽效果</title>
+	<style>
+
+	body {
+
+		/*height: 1000px;*/
+	}
+
+	#box{
+		position:absolute;
+		width:160px;
+		height:160px;
+		background-color:#f00;
+	}
+
+img{width:160px;}
+
+	</style>
+
+	<script src="mycookie.js"></script>
+
+	<script>
+// 拖拽思路
+// 1. 鼠标按下，添加 document.onmousemove 的方法
+// 2. 鼠标移动处理函数中： 让图片跟着鼠标走
+// 3. 鼠标松手： 将 document.onmousemove 清空
+
+window.onload = function() {
+    var box = document.getElementById("box");
+
+
+	var x = getCookie("x");
+	var y = getCookie("y");
+
+	if (x && y)
+	{
+		box.style.left = x + "px";
+		box.style.top = y + "px";
+	}
+	
+
+
+    var oImg = document.getElementsByTagName("img")[0];
+
+	oImg.onmousedown = function(e) {
+		e = e || window.event;
+		
+        e.returnValue = false;
+	}
+
+	
+	// (1) 在图片中按下的时候，开始执行
+	//        onmousedown 鼠标按下的事件
+	box.onmousedown = function(e) 
+	{
+		e = e || window.event;
+
+
+		// 鼠标在图片中点击的坐标
+		var offsetX = e.offsetX || e.clientX - box.getBoundingClientRect().left;
+
+		var offsetY = e.offsetY || e.clientY - box.getBoundingClientRect().top;
+		
+
+		// (2) 因为是在整个页面中移动，所以给document对象添加 
+		//      onmousemove 事件
+		document.onmousemove = function(e) {
+
+			e = e || window.event;
+
+			var x = e.clientX - offsetX;
+			var y = e.clientY - offsetY;
+
+			//console.log("x:" + x);
+			//console.log("y:" + y);
+
+			box.style.left = x + "px";
+			box.style.top = y + "px";
+
+
+			addCookie("x", x, 100);
+			addCookie("y", y, 100);
+			
+			//*
+			if (e.preventDefault) {
+				e.preventDefault();
+			} else {
+				e.returnValue = false;
+			}
+			//*/
+
+		}
+
+		// (3) 鼠标抬起，将移动函数清空
+		document.onmouseup = function() {
+
+			// 将移动的函数清空掉，从而取消了鼠标移动图片的效果
+			document.onmousemove = null;
+
+			// 也可以将鼠标抬起来 onmouseup 的事件清空掉
+			box.onmouseup = null;
+		}
+
+		if (e.preventDefault) {
+			e.preventDefault();
+		} else {
+			e.returnValue = false;
+		}
+
+	}
+
+}
+
+	</script>
+</head>
+<body>
+	<div id="box"><img src="hg.jpg"></div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			ul, li {
+				list-style: none;
+			}
+			
+			#box {
+				width: 800px;
+				height: 300px;
+				position: relative;
+				overflow: hidden;
+				margin: 10px auto;
+			}
+			
+			#list {
+				width: 600px;
+				position:absolute;
+				left: 0px;
+				top: 0;
+			}
+			
+			#list li {
+				width: 600px;
+				height: 300px;
+			}
+			#list img {
+				width: 600px;
+				height: 300px;
+			}
+			
+			#list2 {
+				width: 200px;
+				height: 300px;
+				position: absolute;
+				left: 600px;
+				top: 0;
+			}
+			
+			#list2 li {
+				width: 200px;
+				height: 100px;
+				background: yellow;
+				line-height: 100px;
+				text-align: center;
+				font-size: 20px;
+			}
+		</style>
+<script type="text/javascript" src="starMoveForEiditon.js" ></script>
+		<script>
+		
+		function showBtn(allBtn,index){
+			for(var i=0;i<allBtn.length;i++){
+				allBtn[i].style.background="yellow";
+			}
+			allBtn[index].style.background="red";
+		}
+onload=function(){
+	var list1=document.getElementById("list");
+	var allLi=list1.getElementsByTagName("li");
+	var list2=document.getElementById("list2");
+	var allLi2=list2.getElementsByTagName("li");
+	var prePage=document.getElementById("prePage");
+	var nextPage=document.getElementById("nextPage");
+	
+	list.innerHTML += list.innerHTML;
+	var i=0;
+	var isMoving=false;
+	var timer=setTimeout(move,3000);
+	function move(){
+		isMoving=true;
+		i++;
+		var end=i*300*(-1);
+		startMove(list1,"top",end,hope);
+		var index=i;
+		if(i>=allLi.length/2){
+			index=0;
+		}
+		showBtn(allLi2,index);
+		
+		
+	}
+	
+	
+	function hope(){
+		if(i>=allLi.length/2){
+			i=0;
+			list1.style.top="0px";	
+			
+		}
+		timer=setTimeout(move,3000);
+		isMoving=false;
+	}
+	
+	for (var j = 0; j < allLi2.length; j++) {
+		allLi2[j].xxx=j;
+		allLi2[j].onclick=function(){
+			clearTimeout(timer);
+			i=this.xxx-1;
+			move();
+		}
+	}
+	nextPage.onclick=function(){
+		if(isMoving){
+			return ;
+		}
+		clearTimeout(timer);
+		move();
+		
+	}
+	prePage.onclick=function(){
+		if(isMoving){
+			return ;
+		}
+		clearTimeout(timer);
+		if(i==0){
+			i=allLi.length/2-2;
+			iTop=-1*300*(allLi.length/2);
+			list1.style.top=iTop+"px";
+		}
+		else{
+			i -=2;
+		}
+		move();
+	}
+}	    
+		</script>
+		
+	</head>
+	<body>
+		<div id="box">
+			<ul id="list">
+				<li><img src="1.jpg" /></li>
+				<li><img src="2.jpg" /></li>
+				<li><img src="3.jpg" /></li>
+			</ul>
+			<ul id="list2">
+				<li style="background: red;">1</li>
+				<li>2</li>
+				<li>3</li>
+			</ul>
+		</div>
+		
+		<a href="#" id="prePage">上一页</a> <a href="#" id="nextPage">下一页</a> 
+	</body>
+</html>

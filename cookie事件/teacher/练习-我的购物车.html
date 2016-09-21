@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>我的购物车</title>
+	</head>
+
+<script src="mycookie.js"> </script>
+
+	<script>
+
+onload = function() {
+
+
+	var oUl = document.getElementById("plist");
+
+	// [TODO] 获取cookie，并转换会数组，并遍历创建 LI 显示
+	var str = getCookie("arr");
+ 
+	
+	
+	var arr = [];
+
+	// ""
+	if (str != "")
+	{
+		arr = eval(str);
+	}
+
+	for (var i = 0; i < arr.length; i++)
+	{
+		// 创建一个商品
+		var oLi = document.createElement("li");
+
+		// 取出数组中元素，arr[i] 是一个对象,
+		//    再取出这个对象中的产品名 和 价格
+		oLi.innerHTML = arr[i].name + ", " + arr[i].price;
+
+		oUl.appendChild(oLi);
+	}
+
+}
+
+	</script>
+
+	<body>
+		<ul id="plist">
+		  
+		</ul>
+	</body>
+
+</html>

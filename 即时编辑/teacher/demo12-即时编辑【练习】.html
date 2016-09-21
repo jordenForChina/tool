@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8" />
+	<title></title>
+
+	<style>
+	</style>
+
+	<script type="text/javascript">
+
+
+window.onload = function() {
+
+	var arrTd = document.getElementsByTagName("td");
+
+	for (var i = 0; i < arrTd.length; i++) {
+		arrTd[i].onclick = function() {
+
+			var str = this.innerHTML;
+
+			this.innerHTML = "";
+
+			var oInput = document.createElement("input");
+
+			oInput.value = str;
+
+			this.appendChild(oInput);			
+
+			oInput.focus();
+			// oInput.select();
+
+			oInput.onclick = function(e) {
+				e.stopPropagation();
+			}
+
+			oInput.onblur = function() {
+				// this.parentNode.innerHTML = this.value;
+				this.outerHTML = this.value;
+			}
+
+		}
+	}
+
+}
+
+	</script>
+
+  </head>
+  <body>
+	<table border="1">
+	  <tbody>
+		<tr>
+		  <td>你好</td>
+		  <td>祝你幸福</td>
+		  <td>再见</td>
+		</tr>			
+	  </tbody>
+	</table>
+	
+  </body>
+</html>
+
+

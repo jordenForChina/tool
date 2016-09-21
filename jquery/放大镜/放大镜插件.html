@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>放大镜插件</title>
+	<link rel="stylesheet" href="jquery-lxzoom/jquery.lxzoom.css">
+	<style>
+		#box img{width:200px;}
+	</style>
+	<script src="js/jquery-1.12.0.js"></script>
+	<script src="jquery-lxzoom/jquery.lxzoom.js"></script>
+	<script>
+		$(function(){
+			// 实现放大镜效果
+			$('.lxzoom').lxzoom({
+				width:500,
+				height:300
+			})
+		})
+	</script>
+</head>
+<body>
+	<div id="box" class="lxzoom"><img src="car.jpg"><span></span></div>
+	<br>
+	<div id="box" class="lxzoom"><img src="car.jpg"><span></span></div>
+<br/>
+	<div id="box" class="lxzoom"><img src="car.jpg"><span></span></div>
+</body>
+</html>

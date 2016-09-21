@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8" />
+	<title></title>
+
+
+	<style>
+div {
+    border: 1px solid gray;
+    line-height: 80px;
+    font-size: 30px;
+}
+
+div input {
+    height: 40px;
+    width: 200px;
+}
+
+div span {
+    color: red;
+}
+	</style>
+
+
+	<script>
+/*
+// \d   ==> 代表数字
+
+// 用于匹配一个数字
+
+var reg = /\d/;
+
+
+// reg 是一个对象
+//alert(typeof reg);
+
+// var r = reg.test("5");
+
+// reg.test 用于判断字符串是否满足正则表达式的条件
+//  如果满足，结果为 true
+//  否则 为false
+var r = reg.test("w");
+alert(r);
+//*/
+
+
+/*
+// 因为字符串中 \ 是转义字符，所以需要写 \\
+
+var reg = new RegExp("\\d");
+alert( reg.test("w")  );
+
+//*/
+
+
+// 用户名： 字母、数字、下划线
+
+// \w   表示字母
+
+
+
+
+
+
+onload = function() {
+
+	var oDiv = null;
+	var oLabel = null;
+	var oInput = null;
+	var oSpan = null;
+
+	
+	oDiv = document.getElementById("yhm");
+
+	oLabel = oDiv.getElementsByTagName("label")[0];
+	oInput = oDiv.getElementsByTagName("input")[0];
+
+	// oninput 是当输入框里面的值发生改变，就会触发
+	oInput.oninput = function() {
+		oSpan = this.nextElementSibling;
+		
+		// 取出输入框的值
+		var str = this.value;
+
+		// 用户名： 只能数字 字母 下划线，
+		//          而且只能以字母开头，
+        //          长度 6~20
+		
+		// [a-z] 表示小写的范围
+		// [a-zA-Z] 表示匹配小写a-z 或者大写A到Z		
+		console.log(str);
+
+		//var reg = /[a-z]/;
+
+		//var reg = /[a-zA-Z]/;
+
+		// 字母开头     字母数字下划线
+		// [a-zA-Z]     [a-zA-Z0-9]
+		//                  \w
+		
+		//var reg = /[a-zA-Z][a-zA-Z0-9]/
+
+		// var reg = /[a-zA-Z][a-zA-Z0-9_]/
+
+		// var reg = /[a-zA-Z]\w/
+	
+
+	
+		// 字母开头  空格  字母数字下划线
+		// var reg = /[a-zA-Z] \w/;
+
+
+
+		// 量词：匹配 1个到2个 【注意】, 之间不要加空格
+		//var reg = /\w{1,2}/;
+
+		// 开始    中间        结尾
+		//        1-2个字母
+		// ^        \w{1,2}      $
+		
+		//#a   ===> 假的，因为开始后的字符不是 \w
+		// var reg = /^\w{1,2}$/;
+
+
+		// 用户名： 只能数字 字母 下划线，
+		//          而且只能以字母开头，
+        //          长度 6~20
+
+		// 开始    字母开头    中间      结尾
+		//  ^      [a-zA-Z]   \w{5,19}     $
+		var reg = /^[a-zA-Z]\w{5,19}$/;
+
+
+		//reg.test 验证这个字符串 str 是否满足正则表达式的要求
+		oSpan.innerHTML = reg.test(str);
+
+
+		// {1,2}  1-2个字符
+		// {9}    必须有9个
+
+		//电话号码 
+//  开始   第一个是1  第二个（3,4,5,6,7,8）   中间   结尾
+//   ^         1       [345678]                \d{9}  $
+
+	}
+
+
+
+
+
+	
+	oDiv = document.getElementById("dhhm");
+
+	oLabel = oDiv.getElementsByTagName("label")[0];
+	oInput = oDiv.getElementsByTagName("input")[0];
+
+	oInput.oninput = function() {
+		oSpan = this.nextElementSibling;
+
+		var str = this.value;
+
+
+	
+		// {1,2}  1-2个字符
+		// {9}    必须有9个
+
+		//电话号码 
+//  开始   第一个是1  第二个（3,4,5,6,7,8）   中间   结尾
+//   ^         1       [35678]                \d{9}  $
+//                     [3-8]
+
+		var reg = /^1[35678]\d{9}$/;
+		
+		//reg.test 验证这个字符串 str 是否满足正则表达式的要求
+		oSpan.innerHTML = reg.test(str);
+
+
+
+
+		// 匹配电话号码
+		// 0731-67860987-0
+		// 020-
+
+		// 区号        电话号码（7~8位）   分机号(1~3)
+		// \d{3,4}  -   \d{7,8}       -     \d{1,3}
+		// var reg = /^\d{3,4}-\d{7,8}-\d{1,3}$/;
+
+		// 区号        电话号码（7~8位）   分机号(1~3)
+		// \d{3,4}  -   \d{7,8}       (-     \d{1,3}){0,1}
+
+
+		// 区号        电话号码（7~8位）   分机号(1~3)
+		// \d{3,4}  -   \d{7,8}       (-     \d{1,3})?
+
+
+		// () 分组 作为一个整体
+
+
+		// {0~1} 有一种简写方式 ?
+		// var reg = /^\d{3,4}-\d{7,8}(-\d{1,3}){0,1}$/;
+
+		// {0~1} 有一种简写方式 ?
+		// var reg = /^\d{3,4}-\d{7,8}(-\d{1,3})?$/;
+
+
+
+
+
+
+		// 匹配手机号码？
+		// 13012345678
+
+		// 开头是1  第二个数字3，4,5，7,8     9个数字
+		// 1             [34578]              \d{9}
+
+        // var reg = /^1[34578]\d{9}$/;
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		//reg.test 验证这个字符串 str 是否满足正则表达式的要求
+		//oSpan.innerHTML = reg.test(str);
+	}
+
+
+
+
+	oDiv = document.getElementById("dzyx");
+
+	oLabel = oDiv.getElementsByTagName("label")[0];
+	oInput = oDiv.getElementsByTagName("input")[0];
+
+	oInput.oninput = function() {
+		oSpan = this.nextElementSibling;
+
+		var str = this.value;
+
+
+		// 匹配电子邮箱
+		// amy@163.com
+
+
+	// {9}    必须是9个
+	// {1,}   最少一个，多了不限
+	// {1,8}  必须是1-8个之间
+
+	// . 是一个关键字，必须转移   \.
+	//   匹配任意一个字符
+// 电子邮箱
+// 一串字母、数字、下划线   @   一串字母、数字  .  一串字母
+//     \w{1,}               @    [a-zA-Z0-9]{1,}  \.   [a-zA-Z]{1,}
+
+
+		// var reg = /\w{1,}@[a-zA-Z0-9]{1,}\.[a-zA-Z]{1,}/;
+
+		
+		console.log(str);
+
+		// . 只是匹配任意一个字符
+		// var reg = /./;
+		// 开始  任意字符  结束
+		//  ^      .       $
+		// var reg = /^.$/;
+
+//  + : 至少有一个，多了不限 等价于 {1, }
+//  * : 任意多个                    {0,}
+
+
+// 电子邮箱
+// 一串字母、数字、下划线   @   一串字母、数字  .  一串字母
+//     \w+               @    [a-zA-Z0-9]+  \.   [a-zA-Z]+
+
+		var reg = /\w+@[a-zA-Z0-9]+\.[a-zA-Z]+/;
+
+
+
+
+		// 将匹配的结果，显示到前面的标签中
+		oSpan.innerHTML = reg.test(str);
+
+
+
+
+
+		// 字母、数字、下划线  @  字母 和 数字  .  字母(1~3)
+		//  \w{1,}            [a-zA-Z0-9]{1,}   [a-zA-Z]{1,3}
+
+
+
+
+
+		// . 代表匹配任意字符
+		// 如果需要匹配 . 的话，需要加上转义     \. 
+		// var reg = /^\w{1,}@[a-zA-Z0-9]{1,}\.[a-zA-Z]{1,3}$/;
+
+		//  {0,1}  等价  ?
+		//  {1,}   等价于 +
+		//  {0,}   等价于 *
+
+
+
+		// var reg = /^\w+@[a-zA-Z0-9]+\.[a-zA-Z]{1,3}$/;
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		//reg.test 验证这个字符串 str 是否满足正则表达式的要求
+		oSpan.innerHTML = reg.test(str);
+	}
+
+
+
+
+
+	oDiv = document.getElementById("qq");
+
+	oLabel = oDiv.getElementsByTagName("label")[0];
+	oInput = oDiv.getElementsByTagName("input")[0];
+
+	oInput.oninput = function() {
+		oSpan = this.nextElementSibling;
+
+		var str = this.value;
+
+
+// QQ: 5位 ~ 12位
+
+//     开始   第一个(不能为0)    中间      结尾
+//      ^     [1-9]              \d{4,11}          $
+
+// [1-9]   是1-9的数字
+// [^1-9]  除开1-9的数字，^ 在 [] 中
+// ^  开始
+
+//     开始   1-9之外的    中间      结尾
+//      ^     [^1-9]              \d{4,11}          $
+
+
+		var reg = /^[^1-9]\d{4,11}$/;
+	
+		oSpan.innerHTML = reg.test(str);
+
+
+
+
+
+
+		// 匹配QQ号码
+
+		// 第一个数字(1-9)        长度4-12
+		// [1-9]           \d{4,12}
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		//reg.test 验证这个字符串 str 是否满足正则表达式的要求
+		//oSpan.innerHTML = reg.test(str);
+	}
+
+
+
+
+
+
+	oDiv = document.getElementById("sfzh");
+
+	oLabel = oDiv.getElementsByTagName("label")[0];
+	oInput = oDiv.getElementsByTagName("input")[0];
+
+	oInput.oninput = function() {
+		oSpan = this.nextElementSibling;
+
+		var str = this.value;
+
+
+
+		// 身份证号: 18位        
+		//     430321199901012291
+		//     43032119990101229X
+
+		//  (\d|X)     |  或者的意思
+		//  ()  作为一个整体
+
+		// 开始   第一个1-9  中间    最后一位(数字 或者 X)   结尾
+		//  ^       [1-9]    \d{16}     (\d|X)                $
+
+		var reg = /^[1-9]\d{16}(\d|X)$/;
+
+		oSpan.innerHTML = reg.test(str);
+
+
+
+		// 匹配身份证号码
+		// 
+
+		//  第一个不能为0      16数字        最后一个 X 也可能是数字
+		//   [1-9]            \d{16}         (\d|X)
+
+		// 或者关系  |  
+
+
+		//var reg = /^[1-9]\d{16}(\d|X)$/;
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		//reg.test 验证这个字符串 str 是否满足正则表达式的要求
+		//oSpan.innerHTML = reg.test(str);
+	}
+
+
+
+
+	
+
+//  正则表达式的符号            意义
+//   \d                        数字
+//   \w                        字母、数字、下划线
+//   .                         任意字符
+
+//   {1,9}                     限制1-9个
+//   {1,}                      最少一个
+//   {0,}                      任意多
+//   +                         至少有一个
+//   *                         任意多    
+
+//  [a-z]                      小写的 a-z
+//  [az]                       a或者z
+//  [abc]                      a,b,c 都可以匹配到
+//  [^0-9]                     非数字
+
+//  ^                          开始
+//  $                          结束
+
+//  |                          或者
+//  (a|z)                      a 或者 z           
+
+
+}
+
+
+	</script>
+
+  </head>
+
+  <body>
+	<h1>表单校验大全</h1>
+
+	<div id="yhm"> <label> 用户名<label> <input type="text" /> <span>  </span></div>
+
+	<div id="dhhm"> <label> 电话号码<label> <input type="text" /> <span>  </span></div>
+
+	<div id="dzyx"> <label> 电子邮箱<label> <input type="text" /> <span>  </span></div>
+
+	<div id="qq"> <label> QQ:<label> <input type="text" /> <span>  </span></div>
+
+
+	
+	<div id="sfzh"> <label> 身份证号:<label> <input type="text" /> <span>  </span></div>
+		
+  </body>
+</html>
+

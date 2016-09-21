@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>多动画轮播图</title>
+		
+		<style type="text/css">
+			
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul li {
+				list-style: none;
+			}
+			
+			#main {
+				width: 760px;
+				height: 300px;
+				position: relative;
+				margin: 50px auto;
+				overflow: hidden;
+			}
+			
+			#main .pic {
+				width: 760px;
+				height: 300px;
+
+			}
+			#main .pic ul {
+				position: absolute;
+				/*overflow: hidden;*/
+				top: 0;
+			}
+			#main .pic ul li {
+				width: 760px;
+				height: 300px;
+				position: relative;
+				
+			}
+			#main .pic ul li .img1 {
+				position: absolute;
+				top: 0;
+				left: -760px;
+			}
+			#main .pic ul li .img2 {
+				position: absolute;
+				top: 0;
+				left: -20px;
+				display: none;
+			}
+			#main .nav {
+				position: absolute;
+				right: 20px;
+				bottom: 20px;
+			}
+			#main .nav ul li {
+				width: 10px;
+				height: 10px;
+				border: 1px solid #fff;
+				float: left;
+				margin-left: 5px;
+			}
+			#main .nav ul li.select{
+				background: #fff;
+			}
+		</style>
+		<script src="jquery-1.12.0.js"></script>
+		<script>
+		/*
+			思路：1、整个ul向上移动
+				  2、ul移动完之后，img1向右移动，img2显示并向右移动
+				  3、定时循环以上动作
+		*/
+			$(function(){
+
+				var $ul = $('.pic ul');
+				var $allLi = $('.pic').find('li');
+				var liHeight = $allLi.outerHeight();
+				var $img1 = $('.img1');
+				var $img2 = $('.img2');
+				var img1Left = parseInt($img1.css('left'));
+				var img2Left = parseInt($img2.css('left'));
+				//设置初始状态
+				$('.nav li').eq(0).addClass('select');
+				$img1.eq(0).animate({left:0});
+				$img2.eq(0).css('display','block').animate({left:0});
+				var i = 0 ;
+				var timer = 0;
+
+				function bannermove(){
+				
+					var ulTop = -i*liHeight ;
+					$ul.css('top',ulTop+'px');
+					console.log(i);
+					$img1.eq(i).stop().animate({left:0});
+					$img1.eq(i-1).css('left',img1Left);
+					$img2.eq(i).stop().css('display','block').animate({left:0,});
+					$img2.eq(i-1).css({left:img2Left,display:'none'});
+					//导航框高亮
+					$('.nav li').removeClass('select');
+					$('.nav li').eq(i).addClass('select');
+					i++ ;
+					
+					if (i>$allLi.length) {
+						i=1;
+						$('.nav li').eq(0).addClass('select');
+						$ul.css('top','0');
+						
+						//还原初始状态
+						$img1.eq(0).animate({left:0});
+						$img2.eq(0).css('display','block').animate({left:0});
+					};
+				}
+				$('.nav').on('click','li',function(){
+					
+					 clearInterval(timer);
+					 var index = $(this).index();
+					 $allLi.eq(index).siblings('li').find('.img1').css('left',img1Left);
+					 $allLi.eq(index).siblings('li').find('.img2').css({left:img2Left,display:'none'});
+					 i = index  ;
+					 bannermove();
+					
+				});
+				//启动定时器
+				timer = setInterval(bannermove,2000);
+
+				$ul.on('mouseover','li',function(){
+					clearInterval(timer);
+				});
+				$ul.on('mouseout','li',function(){
+					timer =	setInterval(bannermove,2000);
+				});
+
+
+			});
+		</script>
+	</head>
+	<body>
+		<div id="main">
+			<div class="pic">
+				<ul>
+					<li>
+						<img class="img0" src="img/bg1.jpg"/>
+						<img class="img1" src="img/text1.png"/>
+						<img class="img2" src="img/con1.png"/>
+					</li>
+					<li>
+						<img class="img0" src="img/bg2.jpg"/>
+						<img class="img1" src="img/text2.png"/>
+						<img class="img2" src="img/con2.png"/>
+					</li>
+					<li>
+						<img class="img0" src="img/bg3.jpg"/>
+						<img class="img1" src="img/text3.png"/>
+						<img class="img2" src="img/con3.png"/>
+					</li>
+					<li>
+						<img class="img0" src="img/bg4.jpg"/>
+						<img class="img1" src="img/text4.png"/>
+						<img class="img2" src="img/con4.png"/>
+					</li>
+					<li>
+						<img class="img0" src="img/bg5.jpg"/>
+						<img class="img1" src="img/text5.png"/>
+						<img class="img2" src="img/con5.png"/>
+					</li>
+
+				</ul>
+			</div>
+			<div class="nav">
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+			
+			<!-- <a href="#" class="btn prev"></a>
+			<a href="#" class="btn next"></a>
+			 -->
+		</div>
+
+	</body>
+</html>

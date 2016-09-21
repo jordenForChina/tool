@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>手风琴效果</title>
+	<style>
+		.accordion{margin:0 auto;width:600px;}
+		.accordion h4{margin:1px 0 0;padding:5px 15px;background-color: #2196f3;color:#fff;line-height:2;}
+		.accordion .content{display:none;padding:15px;height:180px;border:1px solid #2196f3;}
+	</style>
+	<script src="js/jquery-1.12.0.js"></script>
+	<script>
+		$(function(){
+			/*
+				手风琴效果
+					1）给h4绑定点击事件
+					2）点击h4，展开h4下一个.content
+			 */
+			$('.accordion h4').click(function(){
+				// $(this).next('.content').show(2000).siblings('.content').hide(2000);
+
+				var $currentContent = $(this).next('.content');
+
+				//判断元素显示状态
+				if($currentContent.is(':visible')){
+					$currentContent.slideUp(200);
+				}else{
+					$currentContent.slideDown(600);
+				}
+				$currentContent.siblings('.content').slideUp(200);
+			})
+		})
+	</script>
+</head>
+<body>
+	<div class="accordion">
+		<h4>标题1</h4>
+		<div class="content">手风琴内容1</div>
+		<h4>标题2</h4>
+		<div class="content">手风琴内容2</div>
+		<h4>标题3</h4>
+		<div class="content">手风琴内容3</div>
+		<h4>标题4</h4>
+		<div class="content">手风琴内容4</div>
+		<h4>标题5</h4>
+		<div class="content">手风琴内容5</div>
+	</div>
+</body>
+</html>

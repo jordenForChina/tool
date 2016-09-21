@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>tab选项卡</title>
+    <style>
+    ul{list-style:none;padding:0;margin:0;}
+    .tab{width:500px;margin:0 auto;}
+    .tab .header li{display:inline-block;padding:5px 15px;}
+    .tab .header li.active{font-weight:bold;color:#f60;}
+    .content{padding:20px;border:1px solid #ddd;background-color: #efefef;text-align:center;}
+    </style>
+    <script src="js/jquery-1.12.0.js"></script>
+    <script>
+        $(function(){
+            /*
+                tab选项卡
+                    1)隐藏除第一个以外的所有.content
+                    2)高亮显示第一个tab标签
+                    3）点击标签，切换相应的内容
+             */
+            
+            // 筛选eq()
+            // 隐藏所有的.content
+
+            // 1)隐藏除第一个以外的所有.content
+            $('.content').hide().eq(0).show();
+
+            // 2)高亮显示第一个tab标签
+            $('.header li').eq(0).addClass('active');
+
+            // 3）点击标签，切换相应的内容
+            $('.header li').click(function(){
+                // 如何获取当前索引值
+                // index()
+                // 在此处this表示当前dom节点
+                // 原生转jquery：$(dom)
+                // jquery转原生：
+
+                // 获取当前li所在的索引值
+                var idx = $(this).index();
+                $('.content').hide().eq(idx).show();
+
+                $('.header li').removeClass('active').eq(idx).addClass('active');
+            });
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <div class="tab">
+        <ul class="header">
+            <li>选项1</li>
+            <li>选项2</li>
+            <li>选项3</li>
+            <li>选项4</li>
+            <li>选项5</li>
+        </ul>
+        <div class="content"><img src="images/1.jpg"></div>
+        <div class="content"><img src="images/2.jpg"></div>
+        <div class="content"><img src="images/3.jpg"></div>
+        <div class="content"><img src="images/4.jpg"></div>
+        <div class="content"><img src="images/5.jpg"></div>
+    </div>
+    <div id="output"></div>
+</body>
+
+</html>
